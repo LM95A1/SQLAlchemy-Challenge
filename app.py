@@ -46,8 +46,7 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
     session = Session(engine)
-    most_active_station = session.query(Measurement.station, func.count(Measurement.station)).group_by(Measurement.station).order_by(func.count(Measurement.station).desc()).first()
-    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= "2016-08-23", Measurement.station == most_active_station[0]).all()
+    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= "2016-08-23", Measurement.station == 'USC00519281').all()
     session.close()
     tobs_data = dict(results)
     return jsonify(tobs_data)
